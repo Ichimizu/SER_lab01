@@ -1,11 +1,34 @@
 <!DOCTYPE SaisonEchec [
 <!ELEMENT SaisonEchec (Tournoi*)>
-<!ELEMENT Tournois (Tournoi*)>
+
 <!ELEMENT Tournoi (Parties*)>
 <!ATTLIST Tournoi Nom CDATA #REQUIRED>
-<!ELEMENT Parties (Joueur+, Arbitre, Coup*)>
-<!ATTLIST Joueur numPartie ID #REQUIRED>
+
+<!ELEMENT Partie (JoueurBlanc, JoueurNoir, Gagnant?, Arbitre, Coup*, Date, Horaire)>
+<!ATTLIST Partie numPartie ID #REQUIRED>
+
+<!ELEMENT Date (Jour, Mois, Annee)>
+<!ELEMENT Jour (#PCDATA)>
+<!ELEMENT Mois (#PCDATA)>
+<!ELEMENT Annee (#PCDATA)>
+
+<!ELEMENT Horaire (Heure, Minute, Seconde)>
+<!ELEMENT Heure (#PCDATA)>
+<!ELEMENT Minute (#PCDATA)>
+<!ELEMENT Seconde (#PCDATA)>
+
+<!ELEMENT Gagnant (JoueurBlanc | JoueurNoir)>
+
+<!ELEMENT JoueurBlanc (Joueur)>
+<!ELEMENT JoueurNoir (Joueur)>
 <!ELEMENT Joueur (Nom, Prenom, Classement)>
+<!ELEMENT Arbitre (Nom, Prenom)>
+<!ELEMENT Nom (#PCDATA)>
+<!ELEMENT Prenom (#PCDATA)>
+<!ELEMENT Classement (#PCDATA)>
 <!ATTLIST Joueur numJoueur ID #REQUIRED>
+
+<!ELEMENT Coup (Nom, Prenom, Classement)>
+
 ]>
 

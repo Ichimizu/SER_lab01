@@ -4,8 +4,9 @@
 <!ELEMENT Tournoi (Parties*)>
 <!ATTLIST Tournoi Nom CDATA #REQUIRED>
 
-<!ELEMENT Partie (JoueurBlanc, JoueurNoir, Gagnant?, Arbitre, Coup*, Date, Horaire)>
+<!ELEMENT Partie (JoueurBlanc, JoueurNoir, Arbitre, Coup*, Date, Horaire)>
 <!ATTLIST Partie numPartie ID #REQUIRED>
+<!ATTLIST Partie Gagnant (JoueurBlanc | JoueurNoir | MatchNul) #REQUIRED>
 
 <!ELEMENT Date (Jour, Mois, Annee)>
 <!ELEMENT Jour (#PCDATA)>
@@ -17,7 +18,6 @@
 <!ELEMENT Minute (#PCDATA)>
 <!ELEMENT Seconde (#PCDATA)>
 
-<!ELEMENT Gagnant (JoueurBlanc | JoueurNoir)>
 
 <!ELEMENT JoueurBlanc (Joueur)>
 <!ELEMENT JoueurNoir (Joueur)>
@@ -28,7 +28,16 @@
 <!ELEMENT Classement (#PCDATA)>
 <!ATTLIST Joueur numJoueur ID #REQUIRED>
 
-<!ELEMENT Coup (Nom, Prenom, Classement)>
+<!ELEMENT Coup (Roque | Deplacement)>
+<!ELEMENT Roque ()>
+<!ATTLIST Roque Type (GrandRoque | PetitRoque) #REQUIRED>
+
+<!ELEMENT Deplacement (Piece, CaseDepart, CaseArrivee)>
+<!ELEMENT CaseDepart (Case)>
+<!ELEMENT CaseArrivee (Case)>
+<!ELEMENT Case (#PCDATA)>
+
+
 
 ]>
 

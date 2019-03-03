@@ -1,0 +1,7 @@
+<!ELEMENT Tournois (Tournoi*)>
+<!ELEMENT Tournoi (Parties*)>
+<!ATTLIST Tournoi Nom CDATA #REQUIRED>
+<!ELEMENT Parties (Joueur+, Arbitre, Coup*)>
+<!ELEMENT Joueur (Nom, Prenom, Classement)>
+
+

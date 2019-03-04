@@ -29,17 +29,22 @@
 <!ATTLIST Joueur numJoueur ID #REQUIRED>
 
 <!ELEMENT Coup (Roque | Deplacement)>
-<!ELEMENT Roque (EMPTY)>
+<!ELEMENT Roque EMPTY>
 <!ATTLIST Roque Type (GrandRoque | PetitRoque) #REQUIRED>
 
-<!ELEMENT Deplacement (Piece, CaseDepart, CaseArrivee)>
+<!ELEMENT Deplacement (Piece, CaseArrivee, CaseDepart?, Elimination?, )>
+<!ELEMENT Elimination (Piece)>
 
 <!ELEMENT CaseDepart (Case)>
 <!ELEMENT CaseArrivee (Case)>
-<!ELEMENT Case (EMPTY)>
+<!ELEMENT Case EMPTY>
 <!ATTLIST Case Lettre (A | B | C | D | E | F | G | H)>
 <!ATTLIST Case Chiffre (1 | 2 | 3 | 4 | 5 | 6 | 7 | 8)>
+
+<!ELEMENT Piece EMPTY>
 
 
 ]>
 
+
+/*Go tester ça sur un XML validator */

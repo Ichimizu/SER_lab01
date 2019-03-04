@@ -1,7 +1,8 @@
 <!DOCTYPE SaisonEchec [
 <!ELEMENT SaisonEchec (Tournoi*)>
 
-<!ELEMENT Tournoi (Parties*)>
+<!ELEMENT Tournoi (Parties*, Vainqueur)>
+<!ELEMENT Vainqueur (Joueur)>
 <!ATTLIST Tournoi Nom CDATA #REQUIRED>
 
 <!ELEMENT Partie (JoueurBlanc, JoueurNoir, Arbitre, Coup*, Date, Horaire)>
@@ -18,7 +19,6 @@
 <!ELEMENT Minute (#PCDATA)>
 <!ELEMENT Seconde (#PCDATA)>
 
-
 <!ELEMENT JoueurBlanc (Joueur)>
 <!ELEMENT JoueurNoir (Joueur)>
 <!ELEMENT Joueur (Nom, Prenom, Classement)>
@@ -29,15 +29,18 @@
 <!ATTLIST Joueur numJoueur ID #REQUIRED>
 
 <!ELEMENT Coup (Roque | Deplacement)>
-<!ELEMENT Roque ()>
-<!ATTLIST Roque Type (GrandRoque | PetitRoque) #REQUIRED>
+<!ATTLIST CoupType (Roque | Deplacement) 
 
-<!ELEMENT Deplacement (Piece, CaseDepart, CaseArrivee)>
+<!ELEMENT Roque ()>
+<!ATTLIST Roque RoqueType (GrandRoque | PetitRoque) #REQUIRED>
+
+<!ELEMENT Deplacement (CaseArrivee, CaseDepart?)>
+<!ATTLIST Deplacement PieceType (Tour | Cavalier | Fou | Dame | Roi | Pion) #REQUIRED>
 <!ELEMENT CaseDepart (Case)>
 <!ELEMENT CaseArrivee (Case)>
-<!ELEMENT Case (#PCDATA)>
-
-
+<!ELEMENT Case EMPTY>
+<!ATTLIST Case Lettre (A | B | C | D | E | F | G | H) #REQUIRED>
+<!ATTLIST Case Chiffre (1 | 2 | 3 | 4 | 5 | 6 | 7 | 8) #REQUIRED>
 
 ]>
 

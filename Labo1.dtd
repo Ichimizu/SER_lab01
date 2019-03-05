@@ -1,7 +1,7 @@
 <!DOCTYPE SaisonEchec [
 <!ELEMENT SaisonEchec (Tournoi*)>
 
-<!ELEMENT Tournoi (Parties*, Vainqueur)>
+<!ELEMENT Tournoi (Partie*, Vainqueur)>
 <!ELEMENT Vainqueur (Joueur)>
 <!ATTLIST Tournoi Nom CDATA #REQUIRED>
 

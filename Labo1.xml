@@ -7,7 +7,7 @@
 
     <!ELEMENT Partie (JoueurBlanc, JoueurNoir, Arbitre, Coup*, Date, Horaire)>
     <!ATTLIST Partie numPartie ID #REQUIRED>
-    <!ATTLIST Partie Gagnant (JoueurBlanc | JoueurNoir | MatchNul) #REQUIRED>
+    <!ATTLIST Partie Gagnant (JoueurBlanc | JoueurNoir | MatchNul) "MatchNul" #REQUIRED>
 
     <!ELEMENT Date (Jour, Mois, Annee)>
     <!ELEMENT Jour (#PCDATA)>
@@ -38,7 +38,7 @@
     <!ELEMENT Promotion EMPTY>
     <!ATTLIST Promotion Piece (Cavalier | Fou | Dame | Tour) #REQUIRED>
     <!ELEMENT FinPartie EMPTY>
-    <!ATTLIST FinPartiePiece Type (EchecAuRoi | EchecEtMat | PartieNulle) #REQUIRED>
+    <!ATTLIST FinPartie Piece (EchecAuRoi | EchecEtMat | PartieNulle) "PartieNulle" #REQUIRED>
 
     <!ELEMENT CaseDepart (Case)>
     <!ELEMENT CaseArrivee (Case)>
@@ -75,7 +75,7 @@
                         <Case Lettre = "E" Chiffre = "4"></Case>
                     </CaseArrivee>
                     <CaseDepart>
-                        <Case Lettre = "E" Chiffre = "2">
+                        <Case Lettre = "E" Chiffre = "2"></Case>
                     </CaseDepart>
                 </Deplacement>
             </Coup>
@@ -85,7 +85,7 @@
                         <Case Lettre = "E" Chiffre = "5"></Case>
                     </CaseArrivee>
                     <CaseDepart>
-                        <Case Lettre = "E" Chiffre = "7">
+                        <Case Lettre = "E" Chiffre = "7"></Case>
                     </CaseDepart>
                 </Deplacement>
             </Coup>
@@ -95,7 +95,7 @@
                         <Case Lettre = "F" Chiffre = "3"></Case>
                     </CaseArrivee>
                     <CaseDepart>
-                        <Case Lettre = "F" Chiffre = "2">
+                        <Case Lettre = "F" Chiffre = "2"></Case>
                     </CaseDepart>
                 </Deplacement>
             </Coup>
@@ -105,9 +105,9 @@
                         <Case Lettre = "H" Chiffre = "4"></Case>
                     </CaseArrivee>
                     <CaseDepart>
-                        <Case Lettre = "D" Chiffre = "8">
+                        <Case Lettre = "D" Chiffre = "8"></Case>
                     </CaseDepart>
-                    <FinPartie FinPartiePiece = "EchecEtMat"></FinPartie>
+                    <FinPartie Piece = "EchecEtMat"></FinPartie>
                 </Deplacement>
             </Coup>
             <Date>

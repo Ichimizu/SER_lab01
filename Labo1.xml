@@ -1,14 +1,55 @@
 <!DOCTYPE SaisonEchec [
-    <!ELEMENT SaisonEchec (Tournoi*)>
+   <!ELEMENT SaisonEchec (Joueurs, Arbitres, Tournois)>
 
-    <!ELEMENT Tournoi (Partie*, Vainqueur)>
+    <!ELEMENT Joueurs (Joueur+)>
+    <!ELEMENT Joueur (Nom, Prenom, Classement)>
+    <!ELEMENT Nom (#PCDATA)>
+    <!ELEMENT Prenom (#PCDATA)>
+    <!ELEMENT Classement (#PCDATA)>
+    <!ATTLIST Joueur numJoueur ID #REQUIRED>
+
+    <!ELEMENT Arbitres (Arbitre+)>
+    <!ELEMENT Arbitre (Nom, Prenom)>
+    <!ATTLIST Arbitre numArbitre ID #REQUIRED>
+
+    <!ELEMENT Tournois (Tournoi*)>
+    <!ELEMENT Tournoi (Partie+, Vainqueur)>
     <!ELEMENT Vainqueur EMPTY>
     <!ATTLIST Vainqueur Joueur IDREF #REQUIRED>
     <!ATTLIST Tournoi Nom CDATA #REQUIRED>
 
-    <!ELEMENT Partie (JoueurBlanc, JoueurNoir, Arbitre, Coup*, Date, Horaire)>
+    <!ELEMENT Partie (JoueurBlanc, JoueurNoir, Coup*, Date, Horaire)>
     <!ATTLIST Partie numPartie ID #REQUIRED>
+    <!ATTLIST Partie Arbitre IDREF #REQUIRED>
     <!ATTLIST Partie Gagnant (JoueurBlanc | JoueurNoir | MatchNul)  #REQUIRED>
+
+    <!ELEMENT JoueurBlanc EMPTY>
+    <!ATTLIST JoueurBlanc Joueur IDREF #REQUIRED>
+    <!ELEMENT JoueurNoir EMPTY>
+    <!ATTLIST JoueurNoir Joueur IDREF #REQUIRED>
+    
+    <!ELEMENT Coup ((Roque | Deplacement), FinPartie?)>
+
+    <!ELEMENT Roque EMPTY>
+    <!ATTLIST Roque Type (GrandRoque | PetitRoque) #REQUIRED>
+
+    <!ELEMENT Deplacement (CaseArrivee, CaseDepart?, Elimination?, Promotion?)>
+    <!ATTLIST Deplacement Piece (Cavalier | Fou | Dame | Tour | Pion | Roi) #REQUIRED>
+
+    <!ELEMENT CaseArrivee (Case)>
+    <!ELEMENT CaseDepart (Case)>
+    <!ELEMENT Case EMPTY>
+    <!ATTLIST Case Lettre (A | B | C | D | E | F | G | H) #REQUIRED>
+    <!ATTLIST Case Chiffre (1 | 2 | 3 | 4 | 5 | 6 | 7 | 8) #REQUIRED>
+
+    <!ELEMENT Elimination EMPTY>
+    <!ATTLIST Elimination Piece (Cavalier | Fou | Dame | Tour | Pion) #REQUIRED>
+
+    <!ELEMENT Promotion EMPTY>
+    <!ATTLIST Promotion Piece (Cavalier | Fou | Dame | Tour) #REQUIRED>
+
+    <!ELEMENT FinPartie EMPTY>
+    <!ATTLIST FinPartie Piece (EchecAuRoi | EchecEtMat | PartieNulle) #REQUIRED>
 
     <!ELEMENT Date (Jour, Mois, Annee)>
     <!ELEMENT Jour (#PCDATA)>
@@ -18,109 +59,272 @@
     <!ELEMENT Horaire (Heure, Minute)>
     <!ELEMENT Heure (#PCDATA)>
     <!ELEMENT Minute (#PCDATA)>
-
-    <!ELEMENT JoueurBlanc (Joueur)>
-    <!ELEMENT JoueurNoir (Joueur)>
-    <!ELEMENT Joueur (Nom, Prenom, Classement)>
-    <!ELEMENT Arbitre (Nom, Prenom)>
-    <!ELEMENT Nom (#PCDATA)>
-    <!ELEMENT Prenom (#PCDATA)>
-    <!ELEMENT Classement (#PCDATA)>
-    <!ATTLIST Joueur numJoueur ID #REQUIRED>
-
-    <!ELEMENT Coup (Roque | Deplacement)>
-    <!ELEMENT Roque EMPTY>
-    <!ATTLIST Roque Type (GrandRoque | PetitRoque) #REQUIRED>
-
-    <!ELEMENT Deplacement (CaseArrivee, CaseDepart?, Elimination?, Promotion?, FinPartie?)>
-    <!ATTLIST Deplacement Piece (Cavalier | Fou | Dame | Tour | Pion | Roi) #REQUIRED>
-    <!ELEMENT Elimination EMPTY>
-    <!ATTLIST Elimination Piece (Cavalier | Fou | Dame | Tour | Pion) #REQUIRED>
-    <!ELEMENT Promotion EMPTY>
-    <!ATTLIST Promotion Piece (Cavalier | Fou | Dame | Tour) #REQUIRED>
-    <!ELEMENT FinPartie EMPTY>
-    <!ATTLIST FinPartie Piece (EchecAuRoi | EchecEtMat | PartieNulle) #REQUIRED>
-
-    <!ELEMENT CaseDepart (Case)>
-    <!ELEMENT CaseArrivee (Case)>
-    <!ELEMENT Case EMPTY>
-    <!ATTLIST Case Lettre (A | B | C | D | E | F | G | H) #REQUIRED>
-    <!ATTLIST Case Chiffre (1 | 2 | 3 | 4 | 5 | 6 | 7 | 8) #REQUIRED>
-
 ]>
 
 <SaisonEchec>
-    <Tournoi Nom = "Tournoi des juniors Suisses">
-        <Partie numPartie = "P1" Gagnant = "JoueurNoir">
-            <JoueurBlanc>
-                <Joueur numJoueur = "J1">
-                    <Nom>Bovet</Nom>
-                    <Prenom>Arthur</Prenom>
-                    <Classement>2000</Classement>
-                </Joueur>
-            </JoueurBlanc>
-            <JoueurNoir>
-                <Joueur numJoueur = "J2">
-                    <Nom>Blanc</Nom>
-                    <Prenom>Samuel</Prenom>
-                    <Classement>1750</Classement>
-                </Joueur>
-            </JoueurNoir>
-            <Arbitre>
-                <Nom>Bolais</Nom>
-                <Prenom>David</Prenom>
-            </Arbitre>
-            <Coup>
-                <Deplacement Piece = "Pion">
-                    <CaseArrivee>
-                        <Case Lettre = "E" Chiffre = "4"></Case>
-                    </CaseArrivee>
-                    <CaseDepart>
-                        <Case Lettre = "E" Chiffre = "2"></Case>
-                    </CaseDepart>
-                </Deplacement>
-            </Coup>
-            <Coup>
-                <Deplacement Piece = "Pion">
-                    <CaseArrivee>
-                        <Case Lettre = "E" Chiffre = "5"></Case>
-                    </CaseArrivee>
-                    <CaseDepart>
-                        <Case Lettre = "E" Chiffre = "7"></Case>
-                    </CaseDepart>
-                </Deplacement>
-            </Coup>
-            <Coup>
-                <Deplacement Piece = "Pion">
-                    <CaseArrivee>
-                        <Case Lettre = "F" Chiffre = "3"></Case>
-                    </CaseArrivee>
-                    <CaseDepart>
-                        <Case Lettre = "F" Chiffre = "2"></Case>
-                    </CaseDepart>
-                </Deplacement>
-            </Coup>
-            <Coup>
-                <Deplacement Piece = "Dame">
-                    <CaseArrivee>
-                        <Case Lettre = "H" Chiffre = "4"></Case>
-                    </CaseArrivee>
-                    <CaseDepart>
-                        <Case Lettre = "D" Chiffre = "8"></Case>
-                    </CaseDepart>
+    <Joueurs>
+        <Joueur numJoueur = "J1">
+            <Nom>Bovet</Nom>
+            <Prenom>Arthur</Prenom>
+            <Classement>2000</Classement>
+        </Joueur>
+        <Joueur numJoueur = "J2">
+            <Nom>Blanc</Nom>
+            <Prenom>Samuel</Prenom>
+            <Classement>1750</Classement>
+        </Joueur>
+        <Joueur numJoueur = "J3">
+            <Nom>Marquez</Nom>
+            <Prenom>Carlos</Prenom>
+            <Classement>1200</Classement>
+        </Joueur>
+        <Joueur numJoueur = "J4">
+            <Nom>Lejeune</Nom>
+            <Prenom>Jean</Prenom>
+            <Classement>2150</Classement>
+        </Joueur>
+    </Joueurs>
+    <Arbitres>
+        <Arbitre numArbitre = "A1">
+            <Nom>Bolais</Nom>
+            <Prenom>David</Prenom>
+        </Arbitre>
+        <Arbitre numArbitre = "A2">
+            <Nom>Dubois</Nom>
+            <Prenom>Marcel</Prenom>
+        </Arbitre>
+    </Arbitres>
+    <Tournois>
+        <Tournoi Nom = "Tournoi des juniors Suisses">
+            <Partie numPartie = "P1" Arbitre = "A1" Gagnant = "JoueurNoir">
+                <JoueurBlanc Joueur = "J1"></JoueurBlanc>
+                <JoueurNoir Joueur = "J2"></JoueurNoir>
+                <Coup>
+                    <Deplacement Piece = "Pion">
+                        <CaseArrivee>
+                            <Case Lettre = "E" Chiffre = "4"></Case>
+                        </CaseArrivee>
+                        <CaseDepart>
+                            <Case Lettre = "E" Chiffre = "2"></Case>
+                        </CaseDepart>
+                    </Deplacement>
+                </Coup>
+                <Coup>
+                    <Deplacement Piece = "Pion">
+                        <CaseArrivee>
+                            <Case Lettre = "E" Chiffre = "5"></Case>
+                        </CaseArrivee>
+                        <CaseDepart>
+                            <Case Lettre = "E" Chiffre = "7"></Case>
+                        </CaseDepart>
+                    </Deplacement>
+                </Coup>
+                <Coup>
+                    <Deplacement Piece = "Pion">
+                        <CaseArrivee>
+                            <Case Lettre = "F" Chiffre = "3"></Case>
+                        </CaseArrivee>
+                        <CaseDepart>
+                            <Case Lettre = "F" Chiffre = "2"></Case>
+                        </CaseDepart>
+                    </Deplacement>
+                </Coup>
+                <Coup>
+                    <Deplacement Piece = "Dame">
+                        <CaseArrivee>
+                            <Case Lettre = "H" Chiffre = "4"></Case>
+                        </CaseArrivee>
+                        <CaseDepart>
+                            <Case Lettre = "D" Chiffre = "8"></Case>
+                        </CaseDepart>
+                    </Deplacement>
                     <FinPartie Piece = "EchecEtMat"></FinPartie>
-                </Deplacement>
-            </Coup>
-            <Date>
-                <Jour>04</Jour>
-                <Mois>03</Mois>
-                <Annee>2019</Annee>
-            </Date>
-            <Horaire>
-                <Heure>18</Heure>
-                <Minute>30</Minute>
-            </Horaire>
-        </Partie>
-        <Vainqueur Joueur = "J1"></Vainqueur>
-    </Tournoi>
+                </Coup>
+                <Date>
+                    <Jour>04</Jour>
+                    <Mois>03</Mois>
+                    <Annee>2019</Annee>
+                </Date>
+                <Horaire>
+                    <Heure>18</Heure>
+                    <Minute>30</Minute>
+                </Horaire>
+            </Partie>
+            <Partie numPartie = "P2" Arbitre = "A2" Gagnant = "MatchNul">
+                <JoueurBlanc Joueur = "J3"></JoueurBlanc>
+                <JoueurNoir Joueur = "J4"></JoueurNoir>
+                <Coup>
+                    <Deplacement Piece = "Pion">
+                        <CaseArrivee>
+                            <Case Lettre = "E" Chiffre = "4"></Case>
+                        </CaseArrivee>
+                        <CaseDepart>
+                            <Case Lettre = "E" Chiffre = "2"></Case>
+                        </CaseDepart>
+                    </Deplacement>
+                </Coup>
+                <Coup>
+                    <Deplacement Piece = "Pion">
+                        <CaseArrivee>
+                            <Case Lettre = "E" Chiffre = "5"></Case>
+                        </CaseArrivee>
+                        <CaseDepart>
+                            <Case Lettre = "E" Chiffre = "7"></Case>
+                        </CaseDepart>
+                    </Deplacement>
+                </Coup>
+                <Coup>
+                    <Deplacement Piece = "Cavalier">
+                        <CaseArrivee>
+                            <Case Lettre = "F" Chiffre = "3"></Case>
+                        </CaseArrivee>
+                        <CaseDepart>
+                            <Case Lettre = "F" Chiffre = "2"></Case>
+                        </CaseDepart>
+                    </Deplacement>
+                </Coup>
+                <Coup>
+                    <Deplacement Piece = "Dame">
+                        <CaseArrivee>
+                            <Case Lettre = "H" Chiffre = "4"></Case>
+                        </CaseArrivee>
+                        <CaseDepart>
+                            <Case Lettre = "D" Chiffre = "8"></Case>
+                        </CaseDepart>
+                    </Deplacement>
+                </Coup>
+                <Coup>
+                    <Roque Type = "GrandRoque"></Roque>
+                    <FinPartie Piece = "PartieNulle"></FinPartie>
+                </Coup>
+                <Date>
+                    <Jour>07</Jour>
+                    <Mois>03</Mois>
+                    <Annee>2019</Annee>
+                </Date>
+                <Horaire>
+                    <Heure>18</Heure>
+                    <Minute>30</Minute>
+                </Horaire>
+            </Partie>
+            <Vainqueur Joueur = "J2"></Vainqueur>
+        </Tournoi>
+        <Tournoi Nom = "Tournoi des seniors Suisses">
+            <Partie numPartie = "P3" Arbitre = "A2" Gagnant = "JoueurBlanc">
+                <JoueurBlanc Joueur = "J3"></JoueurBlanc>
+                <JoueurNoir Joueur = "J2"></JoueurNoir>
+                <Coup>
+                    <Deplacement Piece = "Pion">
+                        <CaseArrivee>
+                            <Case Lettre = "E" Chiffre = "4"></Case>
+                        </CaseArrivee>
+                        <CaseDepart>
+                            <Case Lettre = "E" Chiffre = "2"></Case>
+                        </CaseDepart>
+                    </Deplacement>
+                </Coup>
+                <Coup>
+                    <Deplacement Piece = "Pion">
+                        <CaseArrivee>
+                            <Case Lettre = "A" Chiffre = "5"></Case>
+                        </CaseArrivee>
+                        <CaseDepart>
+                            <Case Lettre = "E" Chiffre = "7"></Case>
+                        </CaseDepart>
+                        <Elimination Piece = "Cavalier"></Elimination>
+                        <Promotion Piece = "Dame"></Promotion>
+                    </Deplacement>
+                </Coup>
+                <Coup>
+                    <Deplacement Piece = "Tour">
+                        <CaseArrivee>
+                            <Case Lettre = "F" Chiffre = "3"></Case>
+                        </CaseArrivee>
+                        <CaseDepart>
+                            <Case Lettre = "F" Chiffre = "2"></Case>
+                        </CaseDepart>
+                    </Deplacement>
+                </Coup>
+                <Coup>
+                    <Deplacement Piece = "Cavalier">
+                        <CaseArrivee>
+                            <Case Lettre = "H" Chiffre = "4"></Case>
+                        </CaseArrivee>
+                        <CaseDepart>
+                            <Case Lettre = "D" Chiffre = "8"></Case>
+                        </CaseDepart>
+                    </Deplacement>
+                    <FinPartie Piece = "EchecAuRoi"></FinPartie>
+                </Coup>
+                <Date>
+                    <Jour>19</Jour>
+                    <Mois>05</Mois>
+                    <Annee>2019</Annee>
+                </Date>
+                <Horaire>
+                    <Heure>20</Heure>
+                    <Minute>30</Minute>
+                </Horaire>
+            </Partie>
+            <Partie numPartie = "P4" Arbitre = "A2" Gagnant = "JoueurBlanc">
+                <JoueurBlanc Joueur = "J1"></JoueurBlanc>
+                <JoueurNoir Joueur = "J4"></JoueurNoir>
+                <Coup>
+                    <Deplacement Piece = "Pion">
+                        <CaseArrivee>
+                            <Case Lettre = "E" Chiffre = "4"></Case>
+                        </CaseArrivee>
+                        <CaseDepart>
+                            <Case Lettre = "E" Chiffre = "2"></Case>
+                        </CaseDepart>
+                    </Deplacement>
+                </Coup>
+                <Coup>
+                    <Deplacement Piece = "Pion">
+                        <CaseArrivee>
+                            <Case Lettre = "E" Chiffre = "5"></Case>
+                        </CaseArrivee>
+                        <CaseDepart>
+                            <Case Lettre = "E" Chiffre = "7"></Case>
+                        </CaseDepart>
+                    </Deplacement>
+                </Coup>
+                <Coup>
+                    <Deplacement Piece = "Cavalier">
+                        <CaseArrivee>
+                            <Case Lettre = "F" Chiffre = "3"></Case>
+                        </CaseArrivee>
+                        <CaseDepart>
+                            <Case Lettre = "F" Chiffre = "2"></Case>
+                        </CaseDepart>
+                    </Deplacement>
+                </Coup>
+                <Coup>
+                    <Deplacement Piece = "Dame">
+                        <CaseArrivee>
+                            <Case Lettre = "H" Chiffre = "4"></Case>
+                        </CaseArrivee>
+                        <CaseDepart>
+                            <Case Lettre = "D" Chiffre = "8"></Case>
+                        </CaseDepart>
+                    </Deplacement>
+                </Coup>
+                <Coup>
+                    <Roque Type = "GrandRoque"></Roque>
+                    <FinPartie Piece = "PartieNulle"></FinPartie>
+                </Coup>
+                <Date>
+                    <Jour>21</Jour>
+                    <Mois>05</Mois>
+                    <Annee>2019</Annee>
+                </Date>
+                <Horaire>
+                    <Heure>21</Heure>
+                    <Minute>30</Minute>
+                </Horaire>
+            </Partie>
+            <Vainqueur Joueur = "J3"></Vainqueur>
+        </Tournoi>
+    </Tournois>
+    
 </SaisonEchec>

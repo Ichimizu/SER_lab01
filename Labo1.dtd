@@ -1,13 +1,54 @@
-<!ELEMENT SaisonEchec (Tournoi*)>
+ <!ELEMENT SaisonEchec (Joueurs, Arbitres, Tournois)>
 
-    <!ELEMENT Tournoi (Partie*, Vainqueur)>
+    <!ELEMENT Joueurs (Joueur+)>
+    <!ELEMENT Joueur (Nom, Prenom, Classement)>
+    <!ELEMENT Nom (#PCDATA)>
+    <!ELEMENT Prenom (#PCDATA)>
+    <!ELEMENT Classement (#PCDATA)>
+    <!ATTLIST Joueur numJoueur ID #REQUIRED>
+
+    <!ELEMENT Arbitres (Arbitre+)>
+    <!ELEMENT Arbitre (Nom, Prenom)>
+    <!ATTLIST Arbitre numArbitre ID #REQUIRED>
+
+    <!ELEMENT Tournois (Tournoi*)>
+    <!ELEMENT Tournoi (Partie+, Vainqueur)>
     <!ELEMENT Vainqueur EMPTY>
     <!ATTLIST Vainqueur Joueur IDREF #REQUIRED>
     <!ATTLIST Tournoi Nom CDATA #REQUIRED>
 
-    <!ELEMENT Partie (JoueurBlanc, JoueurNoir, Arbitre, Coup*, Date, Horaire)>
+    <!ELEMENT Partie (JoueurBlanc, JoueurNoir, Coup*, Date, Horaire)>
     <!ATTLIST Partie numPartie ID #REQUIRED>
+    <!ATTLIST Partie Arbitre IDREF #REQUIRED>
     <!ATTLIST Partie Gagnant (JoueurBlanc | JoueurNoir | MatchNul)  #REQUIRED>
+
+    <!ELEMENT JoueurBlanc EMPTY>
+    <!ATTLIST JoueurBlanc Joueur IDREF #REQUIRED>
+    <!ELEMENT JoueurNoir EMPTY>
+    <!ATTLIST JoueurNoir Joueur IDREF #REQUIRED>
+    
+    <!ELEMENT Coup ((Roque | Deplacement), FinPartie?)>
+
+    <!ELEMENT Roque EMPTY>
+    <!ATTLIST Roque Type (GrandRoque | PetitRoque) #REQUIRED>
+
+    <!ELEMENT Deplacement (CaseArrivee, CaseDepart?, Elimination?, Promotion?)>
+    <!ATTLIST Deplacement Piece (Cavalier | Fou | Dame | Tour | Pion | Roi) #REQUIRED>
+
+    <!ELEMENT CaseArrivee (Case)>
+    <!ELEMENT CaseDepart (Case)>
+    <!ELEMENT Case EMPTY>
+    <!ATTLIST Case Lettre (A | B | C | D | E | F | G | H) #REQUIRED>
+    <!ATTLIST Case Chiffre (1 | 2 | 3 | 4 | 5 | 6 | 7 | 8) #REQUIRED>
+
+    <!ELEMENT Elimination EMPTY>
+    <!ATTLIST Elimination Piece (Cavalier | Fou | Dame | Tour | Pion) #REQUIRED>
+
+    <!ELEMENT Promotion EMPTY>
+    <!ATTLIST Promotion Piece (Cavalier | Fou | Dame | Tour) #REQUIRED>
+
+    <!ELEMENT FinPartie EMPTY>
+    <!ATTLIST FinPartie Piece (EchecAuRoi | EchecEtMat | PartieNulle) #REQUIRED>
 
     <!ELEMENT Date (Jour, Mois, Annee)>
     <!ELEMENT Jour (#PCDATA)>
@@ -17,31 +58,3 @@
     <!ELEMENT Horaire (Heure, Minute)>
     <!ELEMENT Heure (#PCDATA)>
     <!ELEMENT Minute (#PCDATA)>
-
-    <!ELEMENT JoueurBlanc (Joueur)>
-    <!ELEMENT JoueurNoir (Joueur)>
-    <!ELEMENT Joueur (Nom, Prenom, Classement)>
-    <!ELEMENT Arbitre (Nom, Prenom)>
-    <!ELEMENT Nom (#PCDATA)>
-    <!ELEMENT Prenom (#PCDATA)>
-    <!ELEMENT Classement (#PCDATA)>
-    <!ATTLIST Joueur numJoueur ID #REQUIRED>
-
-    <!ELEMENT Coup (Roque | Deplacement)>
-    <!ELEMENT Roque EMPTY>
-    <!ATTLIST Roque Type (GrandRoque | PetitRoque) #REQUIRED>
-
-    <!ELEMENT Deplacement (CaseArrivee, CaseDepart?, Elimination?, Promotion?, FinPartie?)>
-    <!ATTLIST Deplacement Piece (Cavalier | Fou | Dame | Tour | Pion | Roi) #REQUIRED>
-    <!ELEMENT Elimination EMPTY>
-    <!ATTLIST Elimination Piece (Cavalier | Fou | Dame | Tour | Pion) #REQUIRED>
-    <!ELEMENT Promotion EMPTY>
-    <!ATTLIST Promotion Piece (Cavalier | Fou | Dame | Tour) #REQUIRED>
-    <!ELEMENT FinPartie EMPTY>
-    <!ATTLIST FinPartie Piece (EchecAuRoi | EchecEtMat | PartieNulle) #REQUIRED>
-
-    <!ELEMENT CaseDepart (Case)>
-    <!ELEMENT CaseArrivee (Case)>
-    <!ELEMENT Case EMPTY>
-    <!ATTLIST Case Lettre (A | B | C | D | E | F | G | H) #REQUIRED>
-    <!ATTLIST Case Chiffre (1 | 2 | 3 | 4 | 5 | 6 | 7 | 8) #REQUIRED>

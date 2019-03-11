@@ -2,12 +2,13 @@
     <!ELEMENT SaisonEchec (Tournoi*)>
 
     <!ELEMENT Tournoi (Partie*, Vainqueur)>
-    <!ELEMENT Vainqueur (Joueur)>
+    <!ELEMENT Vainqueur EMPTY>
+    <!ATTLIST Vainqueur Joueur IDREF #REQUIRED>
     <!ATTLIST Tournoi Nom CDATA #REQUIRED>
 
     <!ELEMENT Partie (JoueurBlanc, JoueurNoir, Arbitre, Coup*, Date, Horaire)>
     <!ATTLIST Partie numPartie ID #REQUIRED>
-    <!ATTLIST Partie Gagnant (JoueurBlanc | JoueurNoir | MatchNul) "MatchNul" #REQUIRED>
+    <!ATTLIST Partie Gagnant (JoueurBlanc | JoueurNoir | MatchNul)  #REQUIRED>
 
     <!ELEMENT Date (Jour, Mois, Annee)>
     <!ELEMENT Jour (#PCDATA)>
@@ -38,13 +39,13 @@
     <!ELEMENT Promotion EMPTY>
     <!ATTLIST Promotion Piece (Cavalier | Fou | Dame | Tour) #REQUIRED>
     <!ELEMENT FinPartie EMPTY>
-    <!ATTLIST FinPartie Piece (EchecAuRoi | EchecEtMat | PartieNulle) "PartieNulle" #REQUIRED>
+    <!ATTLIST FinPartie Piece (EchecAuRoi | EchecEtMat | PartieNulle) #REQUIRED>
 
     <!ELEMENT CaseDepart (Case)>
     <!ELEMENT CaseArrivee (Case)>
     <!ELEMENT Case EMPTY>
-    <!ATTLIST Case Lettre (A | B | C | D | E | F | G | H)>
-    <!ATTLIST Case Chiffre (1 | 2 | 3 | 4 | 5 | 6 | 7 | 8)>
+    <!ATTLIST Case Lettre (A | B | C | D | E | F | G | H) #REQUIRED>
+    <!ATTLIST Case Chiffre (1 | 2 | 3 | 4 | 5 | 6 | 7 | 8) #REQUIRED>
 
 ]>
 
@@ -120,5 +121,6 @@
                 <Minute>30</Minute>
             </Horaire>
         </Partie>
+        <Vainqueur Joueur = "J1"></Vainqueur>
     </Tournoi>
 </SaisonEchec>
